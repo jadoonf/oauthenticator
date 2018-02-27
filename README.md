@@ -19,15 +19,6 @@ OAuthenticator currently supports the following authentication services:
 A [generic implementation](oauthenticator/generic.py), which you can use with
 any provider, is also available.
 
-## Examples
-
-For an example docker image using OAuthenticator, see the [examples](examples)
-directory.
-
-[Another example](https://github.com/jupyterhub/dockerspawner/tree/master/examples/oauth)
-is using GitHub OAuth to spawn each user's server in a separate docker
-container.
-
 ## Installation
 
 Install with pip:
@@ -143,6 +134,16 @@ sudo jupyterhub -f ./path/to/jupyterhub_config.py
 
 * [Source Code](oauthenticator/azuread.py)
 
+## Auth0 Setup
+
+c.JupyterHub.authenticator_class = 'oauthenticator.auth0.Auth0OAuthenticator'
+c.Auth0OAuthenticator.client_id = '{CLIENT-ID}'
+c.Auth0OAuthenticator.client_secret = '{CLIENT-SECRET}'
+c.Auth0OAuthenticator.oauth_callback_url = 'http://{your-domain}/hub/oauth_callback'
+c.Auth0OAuthenticator.scope = ['openid', 'email']
+
+- define AUTH0_SUBDOMAIN in env variable, or import in authenticator class. Also use scope: email (auth0.py)
+- choose Auth0 authenticator in jupyterhub.libsonnet file (in place of dummy) 
 
 ## GitHub Setup
 
