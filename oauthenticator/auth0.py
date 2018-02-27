@@ -53,8 +53,6 @@ class Auth0Mixin(OAuth2Mixin):
 class Auth0LoginHandler(OAuthLoginHandler, Auth0Mixin):
     pass
 
-
-
 #Custom auth class
 class DataspineAuth0OAuthenticator(OAuthenticator):
 
@@ -82,7 +80,7 @@ class DataspineAuth0OAuthenticator(OAuthenticator):
                           headers={"Content-Type": "application/json"},
                           body=json.dumps(params)
                           )
-
+  
         resp = yield http_client.fetch(req)
         resp_json = json.loads(resp.body.decode('utf8', 'replace'))
 
@@ -93,8 +91,7 @@ class DataspineAuth0OAuthenticator(OAuthenticator):
                  "User-Agent": "JupyterHub",
                  "Authorization": "Bearer {}".format(access_token)
         }
-
-                req = HTTPRequest("https://%s.auth0.com/userinfo" % AUTH0_SUBDOMAIN,
+        req = HTTPRequest("https://%s.auth0.com/userinfo" % AUTH0_SUBDOMAIN,
                           method="GET",
                           headers=headers
                           )
@@ -109,7 +106,6 @@ class DataspineAuth0OAuthenticator(OAuthenticator):
                 'auth0_user': resp_json,
             }
         }
-
 
 class Auth0OAuthenticator(OAuthenticator):
 
@@ -162,7 +158,6 @@ class Auth0OAuthenticator(OAuthenticator):
                 'auth0_user': resp_json,
             }
         }
-
 
 class LocalAuth0OAuthenticator(LocalAuthenticator, Auth0OAuthenticator):
 
